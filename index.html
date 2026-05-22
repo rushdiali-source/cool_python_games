@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Using stable, production-ready Brython links -->
+    <!-- Use direct global fallback scripts from Brython CDN -->
     <script type="text/javascript" src="https://cloudflare.com"></script>
     <script type="text/javascript" src="https://cloudflare.com"></script>
     
@@ -26,30 +26,38 @@
     </style>
 </head>
 
-<!-- Added debug: 1 to force the browser to pop up errors automatically -->
-<body onload="brython({debug: 1})">
+<body onload="brython(1)">
 
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
+    <!-- The target wrapper element -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
+        from browser import document, alert
         import turtle
-        
-        # Connect to the HTML container box
-        turtle.set_panel('turtle-div')
-        
-        t = turtle.Turtle()
-        t.speed(0)
-        
-        colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
-        
-        # Simplified loop to guarantee compatibility
-        for x in range(100):
-            t.pencolor(colors[x % 6])
-            t.forward(x * 2)
-            t.left(59)
+
+        try:
+            # Force Brython default engine config parameters 
+            turtle.set_defaults(
+                turtle_canvas_wrapper = document['turtle-div']
+            )
+            
+            t = turtle.Turtle()
+            t.speed(0)
+            
+            colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
+            
+            for x in range(100):
+                t.color(colors[x % 6])
+                t.forward(x * 2)
+                t.left(59)
+                
+            turtle.done()
+
+        except Exception as err:
+            alert("Python Error: " + str(err))
     </script>
 
 </body>
