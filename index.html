@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brython Turtle Graphics</title>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.4/brython.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.4/brython_stdlib.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin-top: 50px;
+        }
+        /* This is the window where the turtle will draw */
+        #turtle-canvas {
+            border: 2px solid #333;
+            background-color: white;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body onload="brython()">
+
+    <h1>My Brython Turtle Project</h1>
+    <p>Watch Python code run directly in the browser!</p>
+
+    <div id="turtle-canvas"></div>
+
+    <script type="text/python">
+        import turtle
+        
+        # Tell the turtle to draw inside our specific div ID
+        turtle.set_panel('turtle-canvas')
+        
+        t = turtle.Turtle()
+        t.speed(0) # Fastest speed
+        
+        colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
+        
+        # Draw a cool spiral
+        for x in range(100):
+            t.pencolor(colors[x % 6])
+            t.width(x // 25 + 1)
+            t.forward(x * 2)
+            t.left(59)
+            
+        turtle.done()
+    </script>
+
+</body>
+</html>
