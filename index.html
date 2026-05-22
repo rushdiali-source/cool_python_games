@@ -33,13 +33,14 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <div id="turtle-canvas"></div>
+    <canvas id="turtle-canvas" width="500" height="500"></canvas>
 
     <script type="text/python">
         import turtle
+        from browser import document
         
         # Tell the turtle to draw inside our specific div ID
-        turtle.set_panel('turtle-canvas')
+        turtle.Screen().canvas = document['turtle-canvas']
         
         t = turtle.Turtle()
         t.speed(0) # Fastest speed
