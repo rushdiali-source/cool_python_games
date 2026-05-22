@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Latest stable Brython CDN links -->
-    <script src="https://jsdelivr.net"></script>
-    <script src="https://jsdelivr.net"></script>
+    <!-- Using stable, production-ready Brython links -->
+    <script type="text/javascript" src="https://cloudflare.com"></script>
+    <script type="text/javascript" src="https://cloudflare.com"></script>
     
     <style>
         body {
@@ -26,7 +26,8 @@
     </style>
 </head>
 
-<body onload="brython()">
+<!-- Added debug: 1 to force the browser to pop up errors automatically -->
+<body onload="brython({debug: 1})">
 
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
@@ -36,21 +37,17 @@
     <script type="text/python">
         import turtle
         
-        # Connect to our HTML box
+        # Connect to the HTML container box
         turtle.set_panel('turtle-div')
         
         t = turtle.Turtle()
-        t.speed(0) 
+        t.speed(0)
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Draw the spiral using clean Brython syntax
+        # Simplified loop to guarantee compatibility
         for x in range(100):
             t.pencolor(colors[x % 6])
-            # Use standard division and integer casting for Brython stability
-            thickness = int(x / 25) + 1
-            t.pensize(thickness)
-            
             t.forward(x * 2)
             t.left(59)
     </script>
