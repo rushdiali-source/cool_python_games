@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.4/brython.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.12.4/brython_stdlib.js"></script>
+    <!-- Using stable Brython CDN links -->
+    <script type="text/javascript" src="https://cloudflare.com"></script>
+    <script type="text/javascript" src="https://cloudflare.com"></script>
     
     <style>
         body {
@@ -15,11 +16,13 @@
             background-color: #f0f0f0;
             margin-top: 50px;
         }
-        /* Style the drawing canvas board */
-        #turtle-canvas {
+        /* Style the container div that Brython will inject the canvas into */
+        #turtle-div {
             border: 2px solid #333;
             background-color: white;
             display: inline-block;
+            width: 500px;
+            height: 500px;
         }
     </style>
 </head>
@@ -29,18 +32,18 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <canvas id="turtle-canvas" width="500" height="500"></canvas>
+    <!-- Changed from <canvas> to a <div> container required by Brython's turtle module -->
+    <div id="turtle-div"></div>
 
     <script type="text/python">
         import turtle
         from browser import document
         
-        # Explicitly link the Brython turtle screen to our HTML canvas
-        turtle.Screen().canvas = document['turtle-canvas']
+        # Correct Brython setup: target the container div id
+        turtle.set_panel('turtle-div')
         
         t = turtle.Turtle()
         t.speed(0) 
-        t.forward(10)
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
