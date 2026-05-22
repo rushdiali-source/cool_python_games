@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Using optimized, latest 3.12 stable CDN links from JSDelivr -->
+    <!-- Latest stable Brython CDN links -->
     <script src="https://jsdelivr.net"></script>
     <script src="https://jsdelivr.net"></script>
     
@@ -16,7 +16,6 @@
             background-color: #f0f0f0;
             margin-top: 50px;
         }
-        /* Style the target area for the canvas */
         #turtle-div {
             border: 2px solid #333;
             background-color: white;
@@ -32,13 +31,12 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- This is the exact empty container Brython requires to inject the SVG graphics -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
         import turtle
         
-        # Explicitly mount the turtle layout into our HTML container
+        # Connect to our HTML box
         turtle.set_panel('turtle-div')
         
         t = turtle.Turtle()
@@ -46,10 +44,13 @@
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Run spiral script
+        # Draw the spiral using clean Brython syntax
         for x in range(100):
             t.pencolor(colors[x % 6])
-            t.width(x // 25 + 1)
+            # Use standard division and integer casting for Brython stability
+            thickness = int(x / 25) + 1
+            t.pensize(thickness)
+            
             t.forward(x * 2)
             t.left(59)
     </script>
