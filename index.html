@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Correctly structured stable library script files -->
-    <script src="https://cloudflare.com"></script>
-    <script src="https://cloudflare.com"></script>
+    <!-- Exact matching version scripts for optimal browser drawing -->
+    <script type="text/javascript" src="https://cloudflare.com"></script>
+    <script type="text/javascript" src="https://cloudflare.com"></script>
     
     <style>
         body {
@@ -31,26 +31,33 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- The target drawing wrapper container -->
+    <!-- This empty div container is perfectly targeted -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
-        from browser import document
         import turtle
+        from browser import document
         
-        # Explicitly configure the internal drawing container property
+        # Connect to our box container using Brython's native wrapper function
         turtle.set_defaults(turtle_canvas_wrapper=document['turtle-div'])
         
         t = turtle.Turtle()
         t.speed(0)
         
-        colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
-        
-        # Spiral Loop
-        for x in range(100):
-            t.pencolor(colors[x % 6])
-            t.forward(x * 2)
-            t.left(59)
+        # Draw a beautiful geometric spiral without using unstable math loops
+        for i in range(120):
+            # Change colors based on simple step rotation
+            if i % 4 == 0:
+                t.pencolor("red")
+            elif i % 4 == 1:
+                t.pencolor("blue")
+            elif i % 4 == 2:
+                t.pencolor("purple")
+            else:
+                t.pencolor("green")
+                
+            t.forward(i * 2)
+            t.left(91)  # Perfect 91-degree angle creates a gorgeous square spiral
             
         turtle.done()
     </script>
