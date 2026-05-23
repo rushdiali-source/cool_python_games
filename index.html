@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Exact matching version scripts for optimal browser drawing -->
+    <!-- These load the core Python engine and the standard graphics library -->
     <script type="text/javascript" src="https://cloudflare.com"></script>
     <script type="text/javascript" src="https://cloudflare.com"></script>
     
@@ -16,6 +16,7 @@
             background-color: #f0f0f0;
             margin-top: 50px;
         }
+        /* This creates the canvas container box */
         #turtle-div {
             border: 2px solid #333;
             background-color: white;
@@ -26,38 +27,33 @@
     </style>
 </head>
 
+<!-- This tells the browser to start the Python engine when the page loads -->
 <body onload="brython()">
 
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- This empty div container is perfectly targeted -->
+    <!-- The exact target container box where the Python turtle will draw -->
     <div id="turtle-div"></div>
 
+    <!-- Here is your real Python code -->
     <script type="text/python">
         import turtle
         from browser import document
         
-        # Connect to our box container using Brython's native wrapper function
+        # Connect your Python code directly to the HTML container box above
         turtle.set_defaults(turtle_canvas_wrapper=document['turtle-div'])
         
         t = turtle.Turtle()
         t.speed(0)
         
-        # Draw a beautiful geometric spiral without using unstable math loops
-        for i in range(120):
-            # Change colors based on simple step rotation
-            if i % 4 == 0:
-                t.pencolor("red")
-            elif i % 4 == 1:
-                t.pencolor("blue")
-            elif i % 4 == 2:
-                t.pencolor("purple")
-            else:
-                t.pencolor("green")
-                
-            t.forward(i * 2)
-            t.left(91)  # Perfect 91-degree angle creates a gorgeous square spiral
+        colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
+        
+        # Pure Python loop to draw your beautiful spiral
+        for x in range(100):
+            t.pencolor(colors[x % 6])
+            t.forward(x * 2)
+            t.left(59)
             
         turtle.done()
     </script>
