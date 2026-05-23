@@ -6,8 +6,8 @@
     <title>Python Turtle Graphics</title>
     
     <!-- Using stable Skulpt links to render pure Python turtle graphics safely -->
-    <script src="https://cloudflare.com" type="text/javascript"></script>
-    <script src="https://cloudflare.com" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
     
     <style>
         body {
@@ -54,6 +54,7 @@ for x in range(100):
         function runPython() {
             // Configure Skulpt to output graphics inside our canvas box element
             Sk.configure({
+                output: function(text) { console.log(text); },
                 target: 'turtle-canvas',
                 read: function(x) {
                     if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
