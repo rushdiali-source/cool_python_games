@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Using stable scripts to let the engine load directly -->
+    <!-- Correctly structured stable library script files -->
     <script src="https://cloudflare.com"></script>
     <script src="https://cloudflare.com"></script>
     
@@ -31,14 +31,14 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- Target injection node -->
+    <!-- The target drawing wrapper container -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
-        import turtle
         from browser import document
+        import turtle
         
-        # Connect the layout module to our target container
+        # Explicitly configure the internal drawing container property
         turtle.set_defaults(turtle_canvas_wrapper=document['turtle-div'])
         
         t = turtle.Turtle()
@@ -46,7 +46,7 @@
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Draw the spiral
+        # Spiral Loop
         for x in range(100):
             t.pencolor(colors[x % 6])
             t.forward(x * 2)
