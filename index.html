@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Using a secure, single-file bundle link -->
-    <script src="https://jsdelivr.net"></script>
+    <!-- Using stable production links that include standard library dependencies -->
+    <script src="https://cloudflare.com"></script>
+    <script src="https://cloudflare.com"></script>
     
     <style>
         body {
@@ -30,14 +31,13 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- The exact target container box -->
+    <!-- Target injection node -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
         import turtle
-        from browser import document
         
-        # Point the turtle module to our container box
+        # Connect directly to the canvas wrapper
         turtle.set_panel('turtle-div')
         
         t = turtle.Turtle()
@@ -45,8 +45,8 @@
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Simple loop to make sure it loads cleanly
-        for x in range(80):
+        # Basic rendering loop
+        for x in range(100):
             t.pencolor(colors[x % 6])
             t.forward(x * 2)
             t.left(59)
