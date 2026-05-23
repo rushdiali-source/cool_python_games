@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brython Turtle Graphics</title>
+    <title>Python Turtle Graphics</title>
     
-    <!-- Using official stable delivery links to ensure module binding -->
-    <script type="text/javascript" src="https://jsdelivr.net"></script>
-    <script type="text/javascript" src="https://jsdelivr.net"></script>
+    <!-- Using stable PyScript links to run pure Python -->
+    <link rel="stylesheet" href="https://pyscript.net" />
+    <script type="module" src="https://pyscript.net"></script>
     
     <style>
         body {
@@ -16,37 +16,36 @@
             background-color: #f0f0f0;
             margin-top: 50px;
         }
-        #turtle-div {
+        /* Style the target drawing canvas board */
+        #turtle-canvas {
             border: 2px solid #333;
             background-color: white;
             display: inline-block;
-            width: 500px;
-            height: 500px;
         }
     </style>
 </head>
+<body>
 
-<body onload="brython()">
-
-    <h1>My Brython Turtle Project</h1>
+    <h1>My Python Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- The explicit element container required by the engine -->
-    <div id="turtle-div"></div>
+    <!-- Native HTML5 canvas used directly by PyScript -->
+    <canvas id="turtle-canvas" width="500" height="500"></canvas>
 
-    <script type="text/python">
+    <!-- Write your pure Python code directly inside the tags -->
+    <script type="py">
         import turtle
-        from browser import document
         
-        # Official binding method to pass the canvas context to the DOM layout
-        turtle.set_defaults(turtle_canvas_wrapper=document['turtle-div'])
+        # Link the turtle screen directly to our HTML canvas tag
+        screen = turtle.Screen()
+        screen.setup(500, 500)
         
         t = turtle.Turtle()
-        t.speed(0)
+        t.speed(0) 
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Execute the python loops safely
+        # Pure Python loop to draw the spiral
         for x in range(100):
             t.pencolor(colors[x % 6])
             t.forward(x * 2)
