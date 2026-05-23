@@ -55,6 +55,7 @@ for x in range(100):
             // Configure Skulpt to output graphics inside our canvas box element
             Sk.configure({
                 output: function(text) { console.log(text); },
+                __future__: Sk.python3,
                 target: 'turtle-canvas',
                 read: function(x) {
                     if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
