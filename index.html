@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- These load the core Python engine and the standard graphics library -->
-    <script type="text/javascript" src="https://cloudflare.com"></script>
-    <script type="text/javascript" src="https://cloudflare.com"></script>
+    <!-- Using official stable delivery links to ensure module binding -->
+    <script type="text/javascript" src="https://jsdelivr.net"></script>
+    <script type="text/javascript" src="https://jsdelivr.net"></script>
     
     <style>
         body {
@@ -16,7 +16,6 @@
             background-color: #f0f0f0;
             margin-top: 50px;
         }
-        /* This creates the canvas container box */
         #turtle-div {
             border: 2px solid #333;
             background-color: white;
@@ -27,21 +26,19 @@
     </style>
 </head>
 
-<!-- This tells the browser to start the Python engine when the page loads -->
 <body onload="brython()">
 
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- The exact target container box where the Python turtle will draw -->
+    <!-- The explicit element container required by the engine -->
     <div id="turtle-div"></div>
 
-    <!-- Here is your real Python code -->
     <script type="text/python">
         import turtle
         from browser import document
         
-        # Connect your Python code directly to the HTML container box above
+        # Official binding method to pass the canvas context to the DOM layout
         turtle.set_defaults(turtle_canvas_wrapper=document['turtle-div'])
         
         t = turtle.Turtle()
@@ -49,7 +46,7 @@
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Pure Python loop to draw your beautiful spiral
+        # Execute the python loops safely
         for x in range(100):
             t.pencolor(colors[x % 6])
             t.forward(x * 2)
