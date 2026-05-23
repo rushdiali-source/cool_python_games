@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Turtle Graphics</title>
-    
-    <!-- Using stable Skulpt links to render pure Python turtle graphics safely -->
+
+    <!-- REAL Skulpt libraries -->
     <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
-    
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@
             background-color: #f0f0f0;
             margin-top: 50px;
         }
-        /* Style the container box where the Python turtle will draw */
+
         #turtle-canvas {
             border: 2px solid #333;
             background-color: white;
@@ -26,51 +26,73 @@
         }
     </style>
 </head>
+
 <body>
 
     <h1>My Python Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- The exact target container box required for drawing -->
     <div id="turtle-canvas"></div>
 
-    <script type="text/javascript">
-        // Real Python code saved as a text string for Skulpt to execute
+    <script>
+        // Python code
         const pythonCode = `
-import turtle
+from turtle import *
 
-t = turtle.Turtle()
-t.speed(0)
+speed(0)
+bgcolor("white")
 
 colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
 
-# Pure Python loop to draw your spiral
 for x in range(100):
-    t.pencolor(colors[x % 6])
-    t.forward(x * 2)
-    t.left(59)
+    pencolor(colors[x % 6])
+    width(x // 10 + 1)
+    forward(x * 2)
+    left(59)
+
+hideturtle()
+done()
 `;
 
+        // Required for Skulpt file reading
+        function builtinRead(x) {
+            if (Sk.builtinFiles === undefined ||
+                Sk.builtinFiles["files"][x] === undefined) {
+                throw "File not found: '" + x + "'";
+            }
+            return Sk.builtinFiles["files"][x];
+        }
+
         function runPython() {
-            // Configure Skulpt to output graphics inside our canvas box element
+
+            // Connect turtle graphics to the canvas div
+            Sk.TurtleGraphics = {
+                target: 'turtle-canvas'
+            };
+
+            // Configure Skulpt
             Sk.configure({
-                output: function(text) { console.log(text); },
-                __future__: Sk.python3,
-                target: 'turtle-canvas',
-                read: function(x) {
-                    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
-                        throw "File not found: '" + x + "'";
-                    return Sk.builtinFiles["files"][x];
-                }
+                output: function(text) {
+                    console.log(text);
+                },
+                read: builtinRead,
+                __future__: Sk.python3
             });
-            
-            // Run the pure Python code string
+
+            // Run Python
             Sk.misceval.asyncToPromise(function() {
-                return Sk.importMainWithBody("<stdin>", false, pythonCode, true);
+                return Sk.importMainWithBody(
+                    "<stdin>",
+                    false,
+                    pythonCode,
+                    true
+                );
+            }).catch(function(err) {
+                console.error(err.toString());
             });
         }
 
-        // Automatically trigger the Python script engine when the web page loads
+        // Run automatically
         window.onload = runPython;
     </script>
 
