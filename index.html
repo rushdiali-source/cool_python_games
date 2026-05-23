@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Use direct global fallback scripts from Brython CDN -->
-    <script type="text/javascript" src="https://cloudflare.com"></script>
-    <script type="text/javascript" src="https://cloudflare.com"></script>
+    <!-- Using a secure, single-file bundle link -->
+    <script src="https://jsdelivr.net"></script>
     
     <style>
         body {
@@ -26,41 +25,32 @@
     </style>
 </head>
 
-<body onload="brython(1)">
+<body onload="brython()">
 
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- The target wrapper element -->
+    <!-- The exact target container box -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
-        from browser import document, alert
         import turtle
-
-        try:
-            # Force Brython default engine config parameters 
-            turtle.set_defaults(
-                turtle_canvas_wrapper = document['turtle-div']
-            )
-            
-            t = turtle.Turtle()
-            t.speed(0)
-            
-            colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
-            
-            for x in range(100):
-                t.color(colors[x % 6])
-                t.forward(x * 2)
-                t.left(59)
-                
-            turtle.done()
-
-        except Exception as err:
-            alert("Python Error: " + str(err))
+        from browser import document
+        
+        # Point the turtle module to our container box
+        turtle.set_panel('turtle-div')
+        
+        t = turtle.Turtle()
+        t.speed(0)
+        
+        colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
+        
+        # Simple loop to make sure it loads cleanly
+        for x in range(80):
+            t.pencolor(colors[x % 6])
+            t.forward(x * 2)
+            t.left(59)
     </script>
 
 </body>
 </html>
-
-
