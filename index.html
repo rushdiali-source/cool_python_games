@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Turtle Graphics</title>
     
-    <!-- Using stable PyScript links to run pure Python -->
-    <link rel="stylesheet" href="https://pyscript.net" />
-    <script type="module" src="https://pyscript.net"></script>
+    <!-- Using stable Skulpt links to render pure Python turtle graphics safely -->
+    <script src="https://cloudflare.com" type="text/javascript"></script>
+    <script src="https://cloudflare.com" type="text/javascript"></script>
     
     <style>
         body {
@@ -16,11 +16,13 @@
             background-color: #f0f0f0;
             margin-top: 50px;
         }
-        /* Style the target drawing canvas board */
+        /* Style the container box where the Python turtle will draw */
         #turtle-canvas {
             border: 2px solid #333;
             background-color: white;
             display: inline-block;
+            width: 500px;
+            height: 500px;
         }
     </style>
 </head>
@@ -29,29 +31,45 @@
     <h1>My Python Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- Native HTML5 canvas used directly by PyScript -->
-    <canvas id="turtle-canvas" width="500" height="500"></canvas>
+    <!-- The exact target container box required for drawing -->
+    <div id="turtle-canvas"></div>
 
-    <!-- Write your pure Python code directly inside the tags -->
-    <script type="py">
-        import turtle
-        
-        # Link the turtle screen directly to our HTML canvas tag
-        screen = turtle.Screen()
-        screen.setup(500, 500)
-        
-        t = turtle.Turtle()
-        t.speed(0) 
-        
-        colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
-        
-        # Pure Python loop to draw the spiral
-        for x in range(100):
-            t.pencolor(colors[x % 6])
-            t.forward(x * 2)
-            t.left(59)
+    <script type="text/javascript">
+        // Real Python code saved as a text string for Skulpt to execute
+        const pythonCode = `
+import turtle
+
+t = turtle.Turtle()
+t.speed(0)
+
+colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
+
+# Pure Python loop to draw your spiral
+for x in range(100):
+    t.pencolor(colors[x % 6])
+    t.forward(x * 2)
+    t.left(59)
+`;
+
+        function runPython() {
+            // Configure Skulpt to output graphics inside our canvas box element
+            Sk.configure({
+                target: 'turtle-canvas',
+                read: function(x) {
+                    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+                        throw "File not found: '" + x + "'";
+                    return Sk.builtinFiles["files"][x];
+                }
+            });
             
-        turtle.done()
+            // Run the pure Python code string
+            Sk.misceval.asyncToPromise(function() {
+                return Sk.importMainWithBody("<stdin>", false, pythonCode, true);
+            });
+        }
+
+        // Automatically trigger the Python script engine when the web page loads
+        window.onload = runPython;
     </script>
 
 </body>
