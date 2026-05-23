@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- We load both files explicitly so the browser doesn't block background downloads -->
-    <script type="text/javascript" src="https://cloudflare.com"></script>
-    <script type="text/javascript" src="https://cloudflare.com"></script>
+    <!-- Using stable scripts to let the engine load directly -->
+    <script src="https://cloudflare.com"></script>
+    <script src="https://cloudflare.com"></script>
     
     <style>
         body {
@@ -31,26 +31,22 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- The target drawing box -->
+    <!-- Target injection node -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
-        from browser import document
         import turtle
+        from browser import document
         
-        # This explicit pairing tells Brython to draw ONLY inside our div element
-        turtle.set_defaults(
-            turtle_canvas_wrapper = document['turtle-div']
-        )
+        # Connect the layout module to our target container
+        turtle.set_defaults(turtle_canvas_wrapper=document['turtle-div'])
         
         t = turtle.Turtle()
-        
-        # Setting the speed slightly lower stops the script from locking the browser thread
-        t.speed(5)
+        t.speed(0)
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Clean rendering loop
+        # Draw the spiral
         for x in range(100):
             t.pencolor(colors[x % 6])
             t.forward(x * 2)
