@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brython Turtle Graphics</title>
     
-    <!-- Using stable production links that include standard library dependencies -->
+    <!-- Using stable, matched version CDN scripts -->
     <script src="https://cloudflare.com"></script>
     <script src="https://cloudflare.com"></script>
     
@@ -31,25 +31,32 @@
     <h1>My Brython Turtle Project</h1>
     <p>Watch Python code run directly in the browser!</p>
 
-    <!-- Target injection node -->
+    <!-- Explicit element target for Brython injection -->
     <div id="turtle-div"></div>
 
     <script type="text/python">
+        from browser import document
         import turtle
         
-        # Connect directly to the canvas wrapper
-        turtle.set_panel('turtle-div')
+        # Explicit target pairing parameter configuration
+        turtle.set_defaults(
+            turtle_canvas_wrapper = document['turtle-div']
+        )
         
         t = turtle.Turtle()
-        t.speed(0)
+        
+        # Set a controlled animation speed value (1-10) to prevent render blocking
+        t.speed(3)
         
         colors = ['red', 'purple', 'blue', 'green', 'orange', 'yellow']
         
-        # Basic rendering loop
+        # Clean processing loop
         for x in range(100):
             t.pencolor(colors[x % 6])
             t.forward(x * 2)
             t.left(59)
+            
+        turtle.done()
     </script>
 
 </body>
